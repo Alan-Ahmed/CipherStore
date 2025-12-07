@@ -91,3 +91,19 @@ Byggd med **Vite** och **TailwindCSS**.
 För att verifiera att alla enhetstester och integrationstester går grönt:
 ```bash
 dotnet test
+
+
+Reflektion & Designval (VG)
+Hur jag designade arkitekturen och varför
+Jag valde Clean Architecture eftersom det tydligt separerar ansvarsområden. Genom att låta Domain-lagret vara fristående från databas-teknik (EF Core) i Infrastructure, blir systemet mer flexibelt. Om vi i framtiden vill byta databas behöver vi inte skriva om affärslogiken.
+
+Jag använde Repository Pattern för att abstrahera databasanropen. Detta var avgörande för att kunna skriva Enhetstester där jag kunde "mocka" databasen (med Moq) istället för att vara beroende av en riktig SQL-server vid varje test.
+
+För Frontend valde jag att använda Context API istället för Redux, eftersom applikationens state (varukorg + auth) var tillräckligt litet för att Redux skulle innebära onödig komplexitet (overhead).
+
+Vad hade jag förbättrat i nästa version?
+Pagination: Just nu hämtar /api/products alla produkter. Om butiken växer till 1000+ produkter skulle detta bli långsamt. Jag skulle implementera server-side pagination (Take() och Skip()).
+
+Identity & JWT: Nuvarande admin-inloggning är en förenklad implementation. I nästa version skulle jag implementera ASP.NET Core Identity med riktiga JWT-tokens och roller (Admin/User) i databasen för högre säkerhet.
+
+Caching: Implementera Redis-cache för produktlistan för att minska belastningen på SQL-databasen.
