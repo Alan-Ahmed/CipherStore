@@ -107,3 +107,10 @@ Pagination: Just nu hämtar /api/products alla produkter. Om butiken växer till
 Identity & JWT: Nuvarande admin-inloggning är en förenklad implementation. I nästa version skulle jag implementera ASP.NET Core Identity med riktiga JWT-tokens och roller (Admin/User) i databasen för högre säkerhet.
 
 Caching: Implementera Redis-cache för produktlistan för att minska belastningen på SQL-databasen.
+
+Kända buggar
+Stripe-betalning är i "Test Mode", så inga riktiga pengar dras.
+
+Bilder laddas från en lokal mapp i frontend (/public/images). Om filnamnen ändras manuellt kan bilderna sluta visas.
+
+Detta projekt är en del av examinationsuppgift i Fullstack-utveckling.
